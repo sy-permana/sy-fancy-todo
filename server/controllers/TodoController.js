@@ -1,7 +1,7 @@
 const { Todo } = require('../models');
 
 class TodoController {
-    static async readAll(req, res) {
+    static async readAll(req, res, next) {
         const userId = req.loggedInUser.id;
         try {
             const data = await Todo.findAll({
@@ -11,15 +11,14 @@ class TodoController {
             })
             res.status(200).json({ todos : data })
         } catch (err) {
-            console.log(err)
-            let error = err.errors ? err.errors[0].message : 'internal server error';
-            res.status(500).json({ error })
+            next(err)
         }
     }
-    static async create(req, res){
+    static async create(req, res, next){
         try {
-            const { title, description, status, due_date } = req.body;
+            const status = false;
             const userId = req.loggedInUser.id;
+            const { title, description, due_date } = req.body;
             const data = await Todo.create({
                 title,
                 description,
@@ -32,11 +31,10 @@ class TodoController {
                 todo : data 
             })
         } catch (err) {
-            let error = err;
-            res.status(500).json({ error })
+            next(err)
         }
     }
-    static async update(req, res) {
+    static async update(req, res, next) {
         try {
             const { id } = req.params;
             const userId = req.loggedInUser.id;
@@ -56,12 +54,10 @@ class TodoController {
                 msg : `todo with id ${id} has been updated`,
             })
         } catch (err) {
-            let error = err
-            let status = err.status || 500
-            res.status(status).json({ error })
+            next(err);
         }
     }
-    static async destroy(req, res) {
+    static async destroy(req, res, next) {
         try {
             let { id } = req.params;
             Todo.destroy({
@@ -73,8 +69,7 @@ class TodoController {
                 msg : 'success delete'
             })
         } catch (err) {
-            let error = err
-            res.status(500).json({ error })
+            next(err);
         }
     }
 }

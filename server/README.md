@@ -33,15 +33,6 @@
                 "due_date": "2020-11-30T16:00:00.000Z",
                 "createdAt": "2020-08-31T09:02:13.476Z",
                 "updatedAt": "2020-08-31T09:22:55.951Z"
-                },
-                {
-                "id": 2,
-                "title": "sample title 2",
-                "description": "sample title 2",
-                "status": false,
-                "due_date": "2020-11-30T16:00:00.000Z",
-                "createdAt": "2020-08-31T09:26:19.670Z",
-                "updatedAt": "2020-08-31T09:26:45.039Z"
                 }
             ]
         }
@@ -49,12 +40,26 @@
  
 * **Error Response:**
 
+  * **Code:** 401 AUTHENTICATION FAILED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "authentication failed"
+      ]
+    }
+    ```
+
+  OR
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
     ```json
-        {
-            "error" : 'internal server error'
-        }
+    {
+        "errors" : [
+          "error message"
+        ]
+    }
     ```
 
 
@@ -81,7 +86,6 @@
     {
         "title" : "string",
         "description" : "string",
-        "status" : "boolean",
         "due_date" : "timestamp"
     }
   ```
@@ -92,13 +96,14 @@
     **Content:**
     ```json
     {
-        "msg": "creating new Todo success",
+        "msg": "creating todo success",
         "todo": {
             "id": "integer",
             "title": "string",
             "description": "string",
             "status": "boolean",
             "due_date": "timestamp",
+            "userId": "integer",
             "updatedAt": "timestamp",
             "createdAt": "timestamp"
         }
@@ -107,11 +112,37 @@
  
 * **Error Response:**
 
-  * **Code:** 500 <br />
+  * **Code:** 400 VALIDATION ERROR <br />
     **Content:** 
     ```json
     {
-        "error" : "error message"
+      "errors": [
+        "Title cannot empty"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 AUTHENTICATION FAILED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "authentication failed"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "error message"
+        ]
     }
     ```
 
@@ -166,6 +197,153 @@
  
 * **Error Response:**
 
-  * **Code:** 500 <br />
-    **Content:** `{ error : "Log in" }`
+  * **Code:** 400 VALIDATION ERROR <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "Title cannot empty"
+      ]
+    }
+    ```
 
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "authentication failed"
+      ]
+    }
+    ```
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "not authorized"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "todo not found!"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "error message"
+        ]
+    }
+    ```
+
+**Delete Todo**
+----
+  Delete Todo
+
+* **URL**
+
+  `/todos/:id`
+
+* **Method:**
+  
+  `DELETE`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+
+* **Data Params**
+
+  `none`
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "success delete"
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 400 VALIDATION ERROR <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "Title cannot empty"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 AUTHENTICATION FAILED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "authentication failed"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "not authorized"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "todo not found!"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "error message"
+        ]
+    }
+    ```
