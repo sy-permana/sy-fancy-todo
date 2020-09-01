@@ -10,6 +10,10 @@ function errorHandler (err, req, res, next) {
             statusCode = 401;
             errors.push('invalid token');
             break;
+        case 'SequelizeUniqueConstraintError' :
+            statusCode = 400;
+            err.errors.forEach(i => errors.push(i.message));
+            break;
         case 'AUTHENTICATION_FAILED' :
             statusCode = 401;
             errors.push('authentication failed');
@@ -27,7 +31,7 @@ function errorHandler (err, req, res, next) {
             errors.push('invalid email or password')
             break;
         default :
-            console.log(err)
+            console.log(err.name)
             errors.push('internal server error!')
     }
 
