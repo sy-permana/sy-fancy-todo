@@ -26,7 +26,7 @@ class TodoController {
                 })
             })
             .catch(err => {
-                let error = err.errors ? err.errors[0].message : 'internal server error';
+                let error = err;
                 res.status(500).json({ error })
             }) 
     }
@@ -46,7 +46,7 @@ class TodoController {
                 })
             })
             .catch(err => {
-                let error = err.errors ? err.errors[0].message : 'internal server error';
+                let error = err
                 res.status(500).json({ error })
             })
     }
@@ -64,7 +64,7 @@ class TodoController {
                 }
             })
             .catch(err => {
-                let error = err.msg || 'internal server error';
+                let error = err
                 res.status(500).json({ error })
             })
     }

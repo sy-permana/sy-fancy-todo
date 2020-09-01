@@ -16,19 +16,27 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
+      allowNull : false,
       validate : {
+        notNull : {
+          msg : 'Title cannot empty'
+        },
         notEmpty : {
           args : true,
-          msg : 'field title is required.'
+          msg : 'Title cannot empty'
         }
       }
     },
     description: {
       type : DataTypes.TEXT,
+      allowNull : false,
       validate : {
+        notNull : {
+          msg : 'Description cannot empty'
+        },
         notEmpty : {
           args : true,
-          msg : 'please input description'
+          msg : 'Description cannot empty'
         }
       }
     },
@@ -36,7 +44,21 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.BOOLEAN
     },
     due_date: {
-      type : DataTypes.DATE
+      type : DataTypes.DATE,
+      allowNull : false,
+      validate : {
+        notNull : {
+          msg : 'Due date cannot empty'
+        },
+        notEmpty : {
+          args : true,
+          msg : 'Due date cannot empty'
+        },
+        isAfter : {
+          args : new Date().toISOString(),
+          msg : 'Due date must be greater than today'
+        }
+      }
     }
   }, {
     sequelize,
