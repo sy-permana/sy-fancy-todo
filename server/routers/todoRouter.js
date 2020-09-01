@@ -1,9 +1,12 @@
 const router = require('express').Router();
 const Controller = require('../controllers/TodoController');
+const authentication = require('../middlewares/authentication');
+const authorization = require('../middlewares/authorization');
 
+router.use(authentication);
 router.get('/', Controller.readAll);
 router.post('/', Controller.create);
-router.put('/:id', Controller.update);
-router.delete('/:id', Controller.destroy);
+router.put('/:id', authorization, Controller.update);
+router.delete('/:id', authorization, Controller.destroy);
 
-module.exports= router;
+module.exports = router;
