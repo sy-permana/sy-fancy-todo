@@ -3,9 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Fancy ToDo</title>
+    <link rel="stylesheet" href="./styles/main.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-    
+    <!-- Sign-in Page -->
+    <section id="sign-page" class="container text-center">
+        <div class="row">
+            <div class="col-sm img-bg">
+                <h1>Fancy Todo</h1>
+            </div>
+            <div class="col-sm text-left">
+                <h3>Sign In</h3>
+                <form id="sign-in-form" onsubmit="signIn(event)">
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" id="signin-email" name="email" placeholder="email@domain.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="signin-password" name="password" placeholder="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+
+                    <span>click to <a href="#" onclick="signUpShow(event)">sign up!</a></span>
+                </form>
+            </div>
+          </div>
+    </section>
+
+    <!-- Sign-in Page -->
+    <section id="signup-page" class="container text-center">
+        <div class="row">
+            <div class="col-sm text-left">
+                <h3>Sign Up</h3>
+                <form id="sign-up-form" onsubmit="signUp(event)">
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" id="signup-email" name="email" placeholder="email@domain.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="signup-password" name="password" placeholder="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+            <div class="col-sm img-bg">
+                <h1>Sign Up</h1>
+                <h3>and start managing your day!</h3>
+            </div>
+          </div>
+    </section>
+
+    <!-- content section -->
+    <section id="home-page" class="container text-center shadow p-3 mb-5 bg-white rounded">
+        <div class="row">
+            <div class="col-sm-12 row" id="top-nav">
+                <div class="col-sm-8"><button class="btn btn-primary" onclick="signOut()">Logout</button></div>
+                <div class="col-sm-4">search</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8" id="todos">
+                <ul id="todos-container">
+                    
+                </ul>
+            </div>
+            <div class="col-sm-4" id="side">content user and 3rd party API</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="footer">footer</div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="./scripts/main.js"></script>
 </body>
 </html>

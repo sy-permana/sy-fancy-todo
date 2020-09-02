@@ -1,0 +1,53 @@
+#sign-page {
+    width: 600px;
+
+    height: auto;
+    margin: auto;
+
+    position:absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+}
+
+#signup-page {
+    width: 600px;
+
+    height: auto;
+    margin: auto;
+
+    position:absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+}
+
+#home-page {
+    background-color: thistle;
+
+    height: auto;
+    margin: auto;
+
+    position:absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+}
+
+.img-bg{
+    /* background-image: url("/assets/bg.png"); */
+    background-size: cover;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: teal;
+}
+
+#todos{
+    background-color: teal;
+    min-height: 400px;
+}
+
+/* todos show */
+#todos-show {
+    display: inline-block;
+}
