@@ -96,17 +96,7 @@
     **Content:**
     ```json
     {
-        "msg": "creating todo success",
-        "todo": {
-            "id": "integer",
-            "title": "string",
-            "description": "string",
-            "status": "boolean",
-            "due_date": "timestamp",
-            "userId": "integer",
-            "updatedAt": "timestamp",
-            "createdAt": "timestamp"
-        }
+        "msg": "creating todo success"
     }
     ```
  
@@ -182,16 +172,7 @@
     **Content:** 
     ```json
     {
-    "msg": "update todo with id `id` success",
-    "todo": {
-        "id": "integer",
-        "title": "string",
-        "description": "string",
-        "status": "boolean",
-        "due_date": "timestamp",
-        "createdAt": "timestamp",
-        "updatedAt": "timestamp"
-        }
+    "msg": "update todo with id 'integer' success"
     }
     ```
  
