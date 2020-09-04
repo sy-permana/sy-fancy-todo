@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : false,
       validate : {
         notNull : {
-          msg : 'Title cannot empty'
+          msg : 'title is required'
         },
         notEmpty : {
           args : true,
-          msg : 'Title cannot empty'
+          msg : 'title is required'
         }
       }
     },
@@ -37,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : false,
       validate : {
         notNull : {
-          msg : 'Description cannot empty'
+          msg : 'description is required'
         },
         notEmpty : {
           args : true,
-          msg : 'Description cannot empty'
+          msg : 'description is required'
         }
       }
     },
@@ -53,15 +53,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : false,
       validate : {
         notNull : {
-          msg : 'Due date cannot empty'
+          msg : 'due date is required'
         },
         notEmpty : {
           args : true,
-          msg : 'Due date cannot empty'
+          msg : 'due date is required'
         },
         isAfter : {
           args : new Date().toISOString(),
-          msg : 'Due date must be greater than today'
+          msg : 'due date must be greater than today'
         }
       }
     },

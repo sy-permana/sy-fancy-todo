@@ -8,7 +8,7 @@ function errorHandler (err, req, res, next) {
             break;
         case 'JsonWebTokenError' :
             statusCode = 401;
-            errors.push('invalid token');
+            errors.push('invalid access_token');
             break;
         case 'SequelizeUniqueConstraintError' :
             statusCode = 400;
@@ -20,7 +20,7 @@ function errorHandler (err, req, res, next) {
             break;
         case 'TODO_NOT_FOUND' : 
             statusCode = 404;
-            errors.push('todo not found!');
+            errors.push('todo not found');
             break;
         case 'AUTHORIZATION_FAILED' : 
             statusCode = 401;
@@ -32,7 +32,7 @@ function errorHandler (err, req, res, next) {
             break;
         default :
             console.log(err.name)
-            errors.push('internal server error!')
+            errors.push('internal server error')
     }
 
     res.status(statusCode).json({ errors })

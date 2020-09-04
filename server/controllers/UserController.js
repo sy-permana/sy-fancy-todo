@@ -8,7 +8,7 @@ class UserController {
             const { email, password } = req.body;
             let user = await User.create({ email, password });
                 res.status(201).json({
-                    msg : 'register success',
+                    msg : 'sign up success',
                     user : {
                         id : user.id,
                         email : user.email

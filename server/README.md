@@ -1,11 +1,137 @@
 # Fancy Todo
-  ### `A simple web app portofolio to manage your todo list.`
+  #### `*A simple web app portofolio to manage your todo list.*`
 
+## Usere Sign-In and Sign-Up
 
-<br>
-
-**Show Todos**
+**User Sign Up**
 ----
+  Sign Up new user to gain access
+
+* **URL**
+
+  `/users/signup`
+
+* **Method:**
+  
+  `POST`
+
+* **URL Params**
+
+   `none`
+
+* **Data Params**
+
+  ```json
+    {
+        "email" : "email@example.com",
+        "password" : "yourPassword",
+    }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 201 Created <br />
+    **Content:**
+    ```json
+    {
+      "msg": "sign up success",
+      "user": {
+          "id": 1,
+          "email": "example@email.com"
+        }
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 400 VALIDATION ERROR <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "email is required"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "internal server error"
+        ]
+    }
+    ```
+
+**User Sign In**
+----
+  Sign In to access
+
+* **URL**
+
+  `/users/signin`
+
+* **Method:**
+  
+  `POST`
+
+* **URL Params**
+
+   `none`
+
+* **Data Params**
+
+  ```json
+    {
+        "email" : "email@example.com",
+        "password" : "yourPassword",
+    }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 SIGN IN SUCCESS <br />
+    **Content:**
+    ```json
+    {
+      "access_token": "exampleaccesstoken"
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 400 VALIDATION ERROR <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "invalid email or password"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "internal server error"
+        ]
+    }
+    ```
+
+
+<hr>
+
+## Todo Endpoint
+
+**Show All User's Todos**
+---
   Returns all todo List as array of object.
 
 * **URL**
@@ -15,7 +141,12 @@
 * **Method:**
   
   `GET`
-  
+
+* **Headers**
+
+  `access_token`
+
+
 * **URL Params**
 
   `none`
@@ -34,7 +165,7 @@
                 {
                 "id": 1,
                 "title": "sample title 1",
-                "description": "sample desc 1",
+                "description": "sample description 1",
                 "status": true,
                 "due_date": "2020-11-30T16:00:00.000Z",
                 "createdAt": "2020-08-31T09:02:13.476Z",
@@ -68,9 +199,99 @@
     }
     ```
 
+**Get One User's Todos**
+---
+  Returns one todo
+
+* **URL**
+
+  `/todos/:id`
+
+* **Method:**
+  
+  `GET`
+
+* **Headers**
+
+  `access_token`
 
 
-**Create Todo**
+* **URL Params**
+
+   **Required:**
+    *Todo's id*
+   `id=[integer]`
+
+* **Data Params**
+
+  `none`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    {
+      "todo": {
+        "id": 17,
+        "title": "test todo",
+        "description": "testing todo",
+        "status": true,
+        "due_date": "2020-09-23T16:00:00.000Z",
+        "userId": 1,
+        "createdAt": "2020-09-03T05:18:16.660Z",
+        "updatedAt": "2020-09-04T16:13:45.339Z"
+      }
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 401 AUTHENTICATION FAILED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "authentication failed"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "not authorized"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "todo not found"
+      ]
+    }
+    ```
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "error message"
+        ]
+    }
+    ```
+
+**Create New Todo**
 ----
   Create new todo
 * **URL**
@@ -81,8 +302,11 @@
   
   `POST`
 
+* **Headers**
 
-*  **URL Params**
+  `access_token`
+
+* **URL Params**
 
    `none`
 
@@ -90,15 +314,15 @@
 
   ```json
     {
-        "title" : "string",
-        "description" : "string",
-        "due_date" : "timestamp"
+        "title" : "[string]",
+        "description" : "[string]",
+        "due_date" : "[date]"
     }
   ```
 
 * **Success Response:**
 
-  * **Code:** 201 Created <br />
+  * **Code:** 201 CREATED <br />
     **Content:**
     ```json
     {
@@ -113,7 +337,7 @@
     ```json
     {
       "errors": [
-        "Title cannot empty"
+        "title is required"
       ]
     }
     ```
@@ -137,7 +361,7 @@
     ```json
     {
         "errors" : [
-          "error message"
+          "internal server error"
         ]
     }
     ```
@@ -145,7 +369,7 @@
 
 **Update Todo**
 ----
-  update todo
+  update your todo, you can update the title, description, due date and status
 
 * **URL**
 
@@ -155,10 +379,10 @@
   
   `PUT`
   
-*  **URL Params**
+* **URL Params**
 
    **Required:**
-
+    *Todo's id*
    `id=[integer]`
 
 * **Data Params**
@@ -174,7 +398,7 @@
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200 UPDATED <br />
     **Content:** 
     ```json
     {
@@ -189,14 +413,14 @@
     ```json
     {
       "errors": [
-        "Title cannot empty"
+        "title is required"
       ]
     }
     ```
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 AUTHENTICATION FAILED <br />
     **Content:** 
     ```json
     {
@@ -225,7 +449,7 @@
     ```json
     {
       "errors": [
-        "todo not found!"
+        "todo not found"
       ]
     }
     ```
@@ -237,29 +461,142 @@
     ```json
     {
         "errors" : [
-          "error message"
+          "internal server error"
         ]
     }
     ```
 
-**Delete Todo**
+**Toggle Todo Status**
 ----
-  Delete Todo
-
+  toggle your todo status `true or false`
 * **URL**
 
   `/todos/:id`
 
-* **Method:**
+* **Method**
   
-  `DELETE`
-  
-*  **URL Params**
+  `PATCH`
+
+* **Headers**
+
+  `access_token`
+
+* **URL Params**
 
    **Required:**
- 
+    *Todo's id*
    `id=[integer]`
 
+* **Data Params**
+
+  ```json
+  {
+    "status" : "boolean",
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 UPDATED <br />
+    **Content:** 
+    ```json
+    {
+      "msg": "todo has been updated!",
+      "todo": {
+        "id": 17,
+        "title": "Edited Title",
+        "description": "Hey, i eddited this one",
+        "status": true,
+        "due_date": "2020-12-11T16:00:00.000Z",
+        "userId": 1,
+        "createdAt": "2020-09-03T05:18:16.660Z",
+        "updatedAt": "2020-09-04T16:36:11.314Z"
+      }
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 400 VALIDATION ERROR <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "title is required"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 401 AUTHENTICATION FAILED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "authentication failed"
+      ]
+    }
+    ```
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "not authorized"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```json
+    {
+      "errors": [
+        "todo not found"
+      ]
+    }
+    ```
+
+  OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "internal server error"
+        ]
+    }
+    ```
+
+
+**Delete Todo**
+----
+  Delete one of your Todo
+
+* **URL:**
+
+  `/todos/:id`
+
+* **Method:**
+
+  `DELETE`
+
+* **Headers:**
+
+  `access_token`
+
+* **URL Params**
+
+   **Required:**
+    *Todo's id*
+   `id=[integer]`
 
 * **Data Params**
 
@@ -282,7 +619,7 @@
     ```json
     {
       "errors": [
-        "Title cannot empty"
+        "title is required"
       ]
     }
     ```
@@ -318,7 +655,7 @@
     ```json
     {
       "errors": [
-        "todo not found!"
+        "todo not found"
       ]
     }
     ```
@@ -330,7 +667,7 @@
     ```json
     {
         "errors" : [
-          "error message"
+          "internal server error"
         ]
     }
     ```
