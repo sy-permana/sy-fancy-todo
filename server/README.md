@@ -1,3 +1,9 @@
+# Fancy Todo
+  ### `A simple web app portofolio to manage your todo list.`
+
+
+<br>
+
 **Show Todos**
 ----
   Returns all todo List as array of object.

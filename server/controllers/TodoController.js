@@ -1,19 +1,38 @@
 const { Todo } = require('../models');
+const { Op } = require("sequelize");
 
 class TodoController {
     static async readAll(req, res, next) {
-        const userId = req.loggedInUser.id;
         try {
+            const userId = req.loggedInUser.id;
             const data = await Todo.findAll({
                 where : {
                     userId
                 }
             })
-            res.status(200).json({ todos : data })
+            res.status(200).json({ todos : data})
         } catch (err) {
             next(err)
         }
     }
+
+    static async readOne(req, res, next) {
+        try {
+            const { id } = req.params
+            const userId = req.loggedInUser.id;
+            // find one where userid logged in = userid
+            const data = await Todo.findOne({
+                where : {
+                    id,
+                    userId
+                }
+            })
+            res.status(200).json({ todo : data})
+        } catch (err) {
+            next(err)
+        }
+    }
+
     static async create(req, res, next){
         try {
             const status = false;
@@ -34,6 +53,7 @@ class TodoController {
             next(err)
         }
     }
+
     static async update(req, res, next) {
         try {
             const { id } = req.params;
@@ -46,29 +66,65 @@ class TodoController {
                 due_date
              },{
                 where : {
-                    id,
-                    userId
-                }
+                    [Op.and]: [
+                        { id },
+                        { userId }
+                    ]
+                },
+                returning : true
             });
             res.status(200).json({
-                msg : `todo with id ${id} has been updated`,
+                msg : `todo has been updated!`,
+                todo : data[1][0]
             })
         } catch (err) {
             next(err);
         }
     }
+
+    static async toggleStatus(req, res, next) {
+        try {
+            const { id } = req.params;
+            const userId = req.loggedInUser.id;
+            const { status } = req.body;
+            const data = await Todo.update({
+                status
+            },{ 
+                where : {
+                    [Op.and]: [
+                        { id },
+                        { userId }
+                    ]
+                },
+                returning : true
+            });
+            res.status(200).json({
+                msg : `todo has been updated!`,
+                todo : data[1][0]
+            })
+        } catch (err) {
+            console.log(err)
+            next(err)
+        }
+    }
+
     static async destroy(req, res, next) {
         try {
-            let { id } = req.params;
-            Todo.destroy({
+            const { id } = req.params;
+            const userId = req.loggedInUser.id;
+            const data = await Todo.destroy({
                 where : {
-                    id
+                    [Op.and]: [
+                        { id },
+                        { userId }
+                    ]
                 }
             })
             res.status(200).json({
                 msg : 'success delete'
             })
         } catch (err) {
+            console.log(err)
             next(err);
         }
     }
