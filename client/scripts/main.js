@@ -62,7 +62,7 @@ function onSignIn(googleUser) {
         method : 'post',
         data : {
             id_token
-        }
+        } 
     })
     .done(data => {
         console.log(data);
