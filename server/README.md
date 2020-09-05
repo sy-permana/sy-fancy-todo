@@ -97,7 +97,9 @@
     **Content:**
     ```json
     {
-      "access_token": "exampleaccesstoken"
+      "access_token": "returningYourJWTAccessToken",
+      "email": "example@email.com",
+      "picture": "image-url"
     }
     ```
 
@@ -125,6 +127,51 @@
     }
     ```
 
+**Google Sign In**
+----
+  OAuth Google
+
+* **URL**
+
+  `/users/googleSign`
+
+* **Method:**
+  
+  `POST`
+
+* **URL Params**
+
+   `none`
+
+* **Data Params**
+
+  `id_token`
+
+  *you need to successfully signed in using your google account to automatically get `id_token`*
+
+* **Success Response:**
+
+  * **Code:** 200 SIGN IN SUCCESS <br />
+    **Content:**
+    ```json
+    {
+      "access_token": "returningYourJWTAccessToken",
+      "email": "example@email.com",
+      "picture": "image-url"
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "internal server error"
+        ]
+    }
+    ```
 
 <hr>
 
@@ -132,7 +179,7 @@
 
 **Show All User's Todos**
 ---
-  Returns all todo List as array of object.
+  Returns all todo List as array of object. ordered by status, false first.
 
 * **URL**
 

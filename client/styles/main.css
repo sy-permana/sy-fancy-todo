@@ -44,9 +44,48 @@ body {
     background: white;
     padding: 10px !important;
     width: 250px !important;
+    height : 350px !important;
 }
 
+.red-bg {
+    background-color: #e97d86;
+    font-size: large;
+}
+.red-bg .swal-text {
+    font-family: 'Nunito', sans-serif !important;
+    font-size: large;
+    text-align: center;
+}
+.red-bg .swal-button {
+    background-color: #e2eaf6;
+    color: royalblue;
+}
 
+.red-bg .swal-button:not([disabled]):hover {
+    background-color: #7190d5;
+    color: black;
+}
+
+.swal-text {
+    font-family: 'Nunito', sans-serif !important;
+    font-size: large;
+    text-align: center;
+    padding: 5px !important;
+}
+
+.swal-overlay {
+    background-color: rgba(113, 144, 213, 0.45);
+    
+}
+
+.swal-title {
+    margin: 0px !important;
+    padding: 5px !important;
+    font-size: 22px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
+    margin-bottom: 28px;
+    text-transform: capitalize;
+}
 
 /* end classes */
 
@@ -59,13 +98,7 @@ body {
 }
 
 #home-page {
-    padding: 0 !important;
-    height: auto;
-    margin: auto;
-    position:absolute;
-    top : 50%;
-    left : 50%;
-    transform: translate(-50%, -50%);
+
 }
 
 #top-nav {
@@ -88,17 +121,38 @@ body {
     padding: 10px !important;
 }
 
+#todos-container {
+    margin: 10px auto;
+}
+
+#todo-add-form, #todo-edit-form {
+    padding: 20px;
+    margin: 10px auto;
+}
+
+
 #side {
     padding: 10px !important;
 }
 
-/* #home-page.row {
-    position: relative;
-} */
-
 #todos{
-    background-color: teal;
     min-height: 400px;
+    max-height: 520px;
+    overflow-y: scroll;
+}
+
+#profilePic{
+    width: 50px;
+    height: 50px;
+    background-color: teal;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    margin: auto;
+}
+
+#profile {
+    padding: 10px !important;
 }
 
 nav {
@@ -123,5 +177,7 @@ div.p-2 div {
 }
 
 .todo-each {
-    margin : 5px 0 !important;
+    margin : 10px 0 !important;
+
+
 }

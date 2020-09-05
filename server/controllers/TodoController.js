@@ -6,6 +6,9 @@ class TodoController {
         try {
             const userId = req.loggedInUser.id;
             const data = await Todo.findAll({
+                order: [
+                    ['status', 'ASC']
+                ],
                 where : {
                     userId
                 }

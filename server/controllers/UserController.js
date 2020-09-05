@@ -41,7 +41,11 @@ class UserController {
                 email : user.email
             }
             const token = generateToken(payload);
-            res.status(200).json({ access_token : token })
+            res.status(200).json({ 
+                access_token : token,
+                email : user.email,
+                picture : 'https://www.thepeakid.com/wp-content/uploads/2016/03/default-profile-picture-300x300.jpg'
+            })
         } catch (err) {
             console.log(err)
             next(err)
@@ -67,7 +71,11 @@ class UserController {
                     id : user.id,
                     email : user.email
                 })
-                res.status(200).json({ access_token })
+                res.status(200).json({ 
+                    access_token,
+                    email : payload.email,
+                    picture : payload.picture
+                 })
             } else {
                 const newUser = await User.create({
                     email : payload.email,
@@ -77,7 +85,11 @@ class UserController {
                     id : newUser.id,
                     email : newUser.email
                 })
-                res.status(200).json({ access_token })
+                res.status(200).json({ 
+                    access_token,
+                    email : payload.email,
+                    picture : payload.picture
+                })
             }
         } catch (err) {
             next(err)
