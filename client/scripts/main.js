@@ -201,6 +201,7 @@ function postTodo(){
     let description = $('#add-description').val();
     let due_date = $('#add-due-date').val();
     let access_token = localStorage.token;
+    console.log(due_date)
     $.ajax({
         url: `${baseUrl}/todos/`,
         method: 'post',

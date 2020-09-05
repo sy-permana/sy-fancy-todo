@@ -63,11 +63,7 @@ module.exports = (sequelize, DataTypes) => {
           msg : 'due date is required'
         },
         isBeforeToday (value) {
-          let dateISO = new Date(value);
-          let date = dateISO.getDate() < 10 ? '0'+dateISO.getDate() : dateISO.getDate();
-          let month = dateISO.getMonth() + 1 < 10 ? '0'+(dateISO.getMonth() + 1) : dateISO.getMonth() + 1 ;
-          let year = dateISO.getFullYear();
-          if(isDate(`${year}-${month}-${date}`).before(getCurrentDate())) {
+          if(isDate(value.toISOString().split('T')[0]).before(getCurrentDate())) {
             throw new Error('due date must be at least today or ahead')
           }
         }
