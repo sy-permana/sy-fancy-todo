@@ -2,6 +2,9 @@
 const {
   Model
 } = require('sequelize');
+
+const { isDate, getCurrentDate } = require('@esmilo/vremya');
+
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -59,9 +62,14 @@ module.exports = (sequelize, DataTypes) => {
           args : true,
           msg : 'due date is required'
         },
-        isAfter : {
-          args : new Date().toISOString(),
-          msg : 'due date must be greater than today'
+        isBeforeToday (value) {
+          let dateISO = new Date(value);
+          let date = dateISO.getDate() < 10 ? '0'+dateISO.getDate() : dateISO.getDate();
+          let month = dateISO.getMonth() + 1 < 10 ? '0'+(dateISO.getMonth() + 1) : dateISO.getMonth() + 1 ;
+          let year = dateISO.getFullYear();
+          if(isDate(`${year}-${month}-${date}`).before(getCurrentDate())) {
+            throw new Error('due date must be at least today or ahead')
+          }
         }
       }
     },
