@@ -8,6 +8,9 @@ $( document ).ready(function() {
         event.preventDefault();
     })
     auth()
+    randomAdvice();
+    setInterval(randomAdvice,10000);
+    // 
 });
 
 function auth() {
@@ -19,7 +22,7 @@ function auth() {
     if(localStorage.token) {
         $('#home-page').show()
         $('#todos-container').show();
-        profileSet()
+        profileSet();
         fetchTodo();
     } else {
         $('#sign-page').show()
@@ -60,6 +63,7 @@ function signIn(event){
             $("#signin-password").val('');
         })
 }
+
 function signUpShow(event){
     event.preventDefault();
     $('#signup-page').show()
@@ -319,7 +323,6 @@ function toggleTodo(id) {
         }
     })
     .done(data => {
-        console.log(data)
         swal({
             icon : "success",
             title : data.todo.title,
@@ -332,6 +335,22 @@ function toggleTodo(id) {
         errorHandler(err)
     })
 }
+
+// 3rd party api
+
+function randomAdvice(){
+    $.ajax({
+        url : `${baseUrl}/advice`,
+        method : 'get',
+    })
+    .done(data => {
+        $('#api').find('p').text(data.slip.advice)
+    })
+    .fail(err =>{
+        errorHandler(err);
+    })
+}
+
 
 function errorHandler(err) {
     swal(err.responseJSON.errors.join(', '), {

@@ -718,3 +718,54 @@
         ]
     }
     ```
+
+## 3rd Party API using `https://api.adviceslip.com/`
+
+**Get random advice using 3rd party API**
+---
+  Returns one advice
+
+* **URL**
+
+  `/advice`
+
+* **Method:**
+  
+  `GET`
+
+* **Headers**
+
+  `none`
+
+* **URL Params**
+
+  `none`
+
+* **Data Params**
+
+  `none`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    {
+      "slip": {
+        "id": 38,
+        "advice": "The most delicious cocktails often have the highest alcohol content. Always pace yourself to preserve your dignity."
+      }
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** 
+    ```json
+    {
+        "errors" : [
+          "error message"
+        ]
+    }
+    ```
