@@ -1,196 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="google-signin-client_id" content="352928921313-20su21g2mvdu5oau4o5gvg2husjsc9sa.apps.googleusercontent.com">
-    <title>Fancy ToDo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/main.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body>
-    <!-- Sign-in Page -->
-    <section id="sign-page" class="text-center container-cover">
-        <div class="centered-axis-xy rounded">
-            <div class="row img-bg-sign">
-              <div class="col-sm">
-                <h1>Fancy Todo</h1>
-              </div>
-              <div class="col-sm text-left sign-form shadow-sm rounded">
-                <h3>Sign In</h3>
-                <form id="sign-in-form" onsubmit="signIn(event)">
-                    <div class="form-group">
-                      <label for="email">Email address</label>
-                      <input type="email" class="form-control" id="signin-email" name="email" placeholder="email@domain.com">
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" id="signin-password" name="password" placeholder="password">
-                    </div>
-                    <button type="submit" style="width: 100%;" class="btn btn-primary">Sign in</button>
-                    <div class="g-signin2" data-width="230px" data-onsuccess="onSignIn" style="padding: 5px 0;"></div>
-                    <span class="after-br">click to <a href="#" onclick="signUpShow(event)">sign up!</a></span>
-                </form>
-              </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Sign-in Page -->
-    <section id="signup-page" class="text-center container-cover">
-      <div class="centered-axis-xy">
-        <div class="row img-bg-sign">
-          <div class="col-sm text-left sign-form shadow-sm rounded">
-            <h3>Sign Up</h3>
-            <form id="sign-up-form" onsubmit="signUp(event)" style="padding-top: 30px;">
-              <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="signup-email" name="email" placeholder="email@domain.com">
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="signup-password" name="password" placeholder="password">
-              </div>
-              <button type="submit" class="btn btn-primary">Sign Up</button>
-              <button onclick="auth()" class="btn btn-danger" type="button">Cancel</button>
-              <br>
-            </form>
-          </div>
-          <div class="col-sm">
-            <h1>Sign Up</h1>
-            <h3>and start managing your day!</h3>
-          </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="google-signin-client_id"
+    content="352928921313-20su21g2mvdu5oau4o5gvg2husjsc9sa.apps.googleusercontent.com">
+  <title>Fancy ToDo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./styles/main.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- Sign-in Page -->
+  <section id="sign-page" class="text-center container-cover">
+    <div class="centered-axis-xy rounded">
+      <div class="row img-bg-sign">
+        <div class="col-sm">
+          <h1>Fancy Todo</h1>
+        </div>
+        <div class="col-sm text-left sign-form shadow-sm rounded">
+          <h3>Sign In</h3>
+          <form id="sign-in-form" onsubmit="signIn(event)">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="signin-email" name="email" placeholder="email@domain.com">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="signin-password" name="password" placeholder="password">
+            </div>
+            <button type="submit" style="width: 100%;" class="btn btn-primary">Sign in</button>
+            <div class="g-signin2" data-width="230px" data-onsuccess="onSignIn" style="padding: 5px 0;"></div>
+            <span class="after-br">click to <a href="#" onclick="signUpShow(event)">sign up!</a></span>
+          </form>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- content section -->
-    <section id="home-page" class="text-center container-cover">
-      <div class="container">
-        <div class="row text-center fixed-top shadow-sm" style="background-image: linear-gradient(to bottom, #7190d5, #6d9bdc, #6ba5e1, #6bafe6, #6db9ea);">
-          <h2 style="margin: 10px auto;">Fancy Todo</h2>
+  <!-- Sign-in Page -->
+  <section id="signup-page" class="text-center container-cover">
+    <div class="centered-axis-xy">
+      <div class="row img-bg-sign">
+        <div class="col-sm text-left sign-form shadow-sm rounded">
+          <h3>Sign Up</h3>
+          <form id="sign-up-form" onsubmit="signUp(event)" style="padding-top: 30px;">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="signup-email" name="email" placeholder="email@domain.com">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="signup-password" name="password" placeholder="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <button onclick="auth()" class="btn btn-danger" type="button">Cancel</button>
+            <br>
+          </form>
         </div>
-        <div class="row" style="margin-top: 60px;">
-          <div class="col-sm-8" id="todos">
-            <!-- nav top -->
-            <ul class="nav justify-content-center shadow-sm rounded" style="background-color: rgba(0, 188, 73, 0.4);">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" onclick="addTodo()"><img src="./assets/baseline_add_black_18dp.png"></a>
-              </li>
-            </ul>
-            <!-- view todos -->
-            <div id="todos-container">
-              <div class="todo-each justify-content-center shadow-sm bg-light rounded">
-                <table class="table">
-                  <tbody id="todos-container-inner">
-                    <tr>
-                      <th scope="row">
-                        <button class="btn btn-success btn-sm"><img src="./assets/1x/baseline_done_black_18dp.png" ></button>
-                      </th>
-                      <td style="min-width: 300px;" class="text-left">Mark</td>
-                      <td class="text-right">
-                        <div class="btn-group">
-                          <button class="btn btn-info btn-sm">view detail</button>
-                          <button class="btn btn-warning btn-sm"><img src="./assets/baseline_edit_black_18dp.png"> edit</button>
-                          <button class="btn btn-danger btn-sm"><img src="./assets/baseline_delete_black_18dp.png" > delete</button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <!-- add todo -->
-            <div id="todo-add-form" class="justify-content-center shadow-sm bg-light rounded">
-              <h4>Add new Todo</h4>
-              <form onsubmit="postTodo()" class="text-left">
-                <div class="form-group">
-                  <label for="add-title">Title</label>
-                  <input type="text" class="form-control" id="add-title">
-                </div>
-                <div class="form-group">
-                  <label for="description">Description</label>
-                  <input type="text" class="form-control" id="add-description">
-                </div>
-                <div class="form-group">
-                  <label for="due_date">Due Date</label>
-                  <input type="date" class="form-control" id="add-due-date">
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-success" >Add New Todo</button>
-                  <button class="btn btn-danger" onclick="auth()" type="button" >Cancel</button>
-                </div>
-              </form>
-            </div>
+        <div class="col-sm">
+          <h1>Sign Up</h1>
+          <h3>and start managing your day!</h3>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <!-- edit todo -->
-            <div id="todo-edit-form" class="justify-content-center shadow-sm bg-light rounded">
-              <h4>Edit Todo</h4>
-              <form class="text-left" id="edit-form-put">
-                <div class="form-group">
-                  <label for="put-title">Title</label>
-                  <input type="text" class="form-control" id="put-title">
-                </div>
-                <div class="form-group">
-                  <label for="put-description">Description</label>
-                  <input type="text" class="form-control" id="put-description">
-                </div>
-                <div class="form-group">
-                  <label for="put-status">Status</label>
-                  <select class="form-control" id="put-status">
-                    <option value="">----select one----</option>
-                    <option value="true">Done</option>
-                    <option value="false">Pending</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="put-due_date">Due Date</label>
-                  <input type="date" class="form-control" id="put-due-date">
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-success" >Save</button>
-                  <button class="btn btn-danger" onclick="auth()" type="button" >Cancel</button>
-                </div>
-              </form>
+  <!-- content section -->
+  <section id="home-page" class="text-center container-cover">
+    <div class="container">
+      <div class="row text-center fixed-top shadow-sm"
+        style="background-image: linear-gradient(to bottom, #7190d5, #6d9bdc, #6ba5e1, #6bafe6, #6db9ea);">
+        <h2 style="margin: 10px auto;">Fancy Todo</h2>
+      </div>
+      <div class="row" style="margin-top: 60px;">
+        <div class="col-sm-8" id="todos">
+          <!-- nav top -->
+          <ul class="nav justify-content-center shadow-sm rounded" style="background-color: rgba(0, 188, 73, 0.4);">
+            <li class="nav-item">
+              <a class="nav-link active" href="#" onclick="addTodo()"><img
+                  src="./assets/baseline_add_black_18dp.png"></a>
+            </li>
+          </ul>
+          <!-- view todos -->
+          <div id="todos-container">
+            <div class="todo-each justify-content-center shadow-sm bg-light rounded">
+              <table class="table">
+                <tbody id="todos-container-inner">
+                  <tr>
+                    <th scope="row">
+                      <button class="btn btn-success btn-sm"><img
+                          src="./assets/1x/baseline_done_black_18dp.png"></button>
+                    </th>
+                    <td style="min-width: 300px;" class="text-left">Mark</td>
+                    <td class="text-right">
+                      <div class="btn-group">
+                        <button class="btn btn-info btn-sm">view detail</button>
+                        <button class="btn btn-warning btn-sm"><img src="./assets/baseline_edit_black_18dp.png">
+                          edit</button>
+                        <button class="btn btn-danger btn-sm"><img src="./assets/baseline_delete_black_18dp.png">
+                          delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <div class="col-sm-4" id="side">
-
-            <div id="profile" class="container justify-content-center bg-light shadow-sm rounded">
-              <div class="row">
-                <div class="col-sm-2">
-                  <span id="profilePic" class="rounded"></span>
-                </div>
-                <div class="col-sm-10 text-left" style="overflow: hidden;" id="profileCredential">
-                  
-                </div>
+          <!-- add todo -->
+          <div id="todo-add-form" class="justify-content-center shadow-sm bg-light rounded">
+            <h4>Add new Todo</h4>
+            <form onsubmit="postTodo()" class="text-left">
+              <div class="form-group">
+                <label for="add-title">Title</label>
+                <input type="text" class="form-control" id="add-title">
               </div>
-            </div>
-
-            <div id="api" class="card bg-light mb-3" style="max-width: 100%; margin-top: 20px !important;">
-              <div class="card-header">A little piece of advice for you</div>
-              <div class="card-body">
-                <p class="card-text"></p>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="add-description">
               </div>
-            </div>
+              <div class="form-group">
+                <label for="due_date">Due Date</label>
+                <input type="date" class="form-control" id="add-due-date">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success">Add New Todo</button>
+                <button class="btn btn-danger" onclick="auth()" type="button">Cancel</button>
+              </div>
+            </form>
+          </div>
 
+          <!-- edit todo -->
+          <div id="todo-edit-form" class="justify-content-center shadow-sm bg-light rounded">
+            <h4>Edit Todo</h4>
+            <form class="text-left" id="edit-form-put">
+              <div class="form-group">
+                <label for="put-title">Title</label>
+                <input type="text" class="form-control" id="put-title">
+              </div>
+              <div class="form-group">
+                <label for="put-description">Description</label>
+                <input type="text" class="form-control" id="put-description">
+              </div>
+              <div class="form-group">
+                <label for="put-status">Status</label>
+                <select class="form-control" id="put-status">
+                  <option value="">----select one----</option>
+                  <option value="true">Done</option>
+                  <option value="false">Pending</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="put-due_date">Due Date</label>
+                <input type="date" class="form-control" id="put-due-date">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button class="btn btn-danger" onclick="auth()" type="button">Cancel</button>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="row fixed-bottom border">
-          <div class="col-sm-12" id="footer">
-            <span><a href="https://github.com/sy-permana">sy-permana</a></span>
-            <span>@hacktiv8</span><br>
-          </div>
-        </div>
-      </div>   
-    </section>
+        <div class="col-sm-4" id="side">
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="./scripts/main.js"></script>
+          <div id="profile" class="container justify-content-center bg-light shadow-sm rounded">
+            <div class="row">
+              <div class="col-sm-2">
+                <span id="profilePic" class="rounded"></span>
+              </div>
+              <div class="col-sm-10 text-left" style="overflow: hidden;" id="profileCredential">
+
+              </div>
+            </div>
+          </div>
+
+          <div id="api" class="card bg-light mb-3" style="max-width: 100%; margin-top: 20px !important;">
+            <div class="card-header">A little piece of advice for you</div>
+            <div class="card-body">
+              <p class="card-text"></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row fixed-bottom border">
+        <div class="col-sm-12" id="footer">
+          <span><a href="https://github.com/sy-permana">sy-permana</a></span>
+          <span>@hacktiv8</span><br>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <script src="./scripts/main.js"></script>
 </body>
+
 </html>

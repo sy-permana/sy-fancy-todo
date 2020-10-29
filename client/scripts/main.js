@@ -1,149 +1,150 @@
-let baseUrl = 'http://localhost:3000';
+let baseUrl = 'https://fancy-todo-sy.herokuapp.com'
 
-$( document ).ready(function() {
-    $('a').click(function(event){
-        event.preventDefault();
-    })
-    $('form').submit(function(event){
-        event.preventDefault();
-    })
-    auth()
-    randomAdvice();
-    setInterval(randomAdvice,10000);
-    // 
-});
+$(document).ready(function () {
+  $('a').click(function (event) {
+    event.preventDefault()
+  })
+  $('form').submit(function (event) {
+    event.preventDefault()
+  })
+  auth()
+  randomAdvice()
+  setInterval(randomAdvice, 10000)
+  //
+})
 
 function auth() {
-    $('#sign-page').hide()
-    $('#home-page').hide()
-    $('#signup-page').hide()
-    $('#todo-add-form').hide()
-    $('#todo-edit-form').hide()
-    if(localStorage.token) {
-        $('#home-page').show()
-        $('#todos-container').show();
-        profileSet();
-        fetchTodo();
-    } else {
-        $('#sign-page').show()
-    }
+  $('#sign-page').hide()
+  $('#home-page').hide()
+  $('#signup-page').hide()
+  $('#todo-add-form').hide()
+  $('#todo-edit-form').hide()
+  if (localStorage.token) {
+    $('#home-page').show()
+    $('#todos-container').show()
+    profileSet()
+    fetchTodo()
+  } else {
+    $('#sign-page').show()
+  }
 }
 
-function profileSet(){
-    $('#profilePic').css("background-image",`url(${localStorage.picture})`);
-    $('#profileCredential').empty().append(`
+function profileSet() {
+  $('#profilePic').css('background-image', `url(${localStorage.picture})`)
+  $('#profileCredential').empty().append(`
     <span>${localStorage.email}</span><br>
     <small><a href="#" onclick="signOut()">Sign Out</a></small>
     `)
 }
 
-function signIn(event){
-    event.preventDefault()
-        const email = $("#signin-email").val();
-        const password = $("#signin-password").val();
-        $.ajax({
-            url: `${baseUrl}/users/signin`,
-            method: 'post',
-            data: {
-                email,
-                password
-            }
-        })
-        .done(data => {
-            localStorage.setItem('token', data.access_token)
-            localStorage.setItem('email', data.email)
-            localStorage.setItem('picture', data.picture)
-            auth()
-        })
-        .fail(err => {
-            errorHandler(err)
-        })
-        .always(_=> {
-            $("#signin-email").val('');
-            $("#signin-password").val('');
-        })
+function signIn(event) {
+  event.preventDefault()
+  const email = $('#signin-email').val()
+  const password = $('#signin-password').val()
+  $.ajax({
+    url: `${baseUrl}/users/signin`,
+    method: 'post',
+    data: {
+      email,
+      password
+    }
+  })
+    .done(data => {
+      localStorage.setItem('token', data.access_token)
+      localStorage.setItem('email', data.email)
+      localStorage.setItem('picture', data.picture)
+      auth()
+    })
+    .fail(err => {
+      errorHandler(err)
+    })
+    .always(_ => {
+      $('#signin-email').val('')
+      $('#signin-password').val('')
+    })
 }
 
-function signUpShow(event){
-    event.preventDefault();
-    $('#signup-page').show()
-    $('#sign-page').hide()
+function signUpShow(event) {
+  event.preventDefault()
+  $('#signup-page').show()
+  $('#sign-page').hide()
 }
 
 // GOOGLE OAUTH
 function onSignIn(googleUser) {
-    let id_token = googleUser.getAuthResponse().id_token;
-    $.ajax({
-        url : `${baseUrl}/users/googleSign`,
-        method : 'post',
-        data : {
-            id_token
-        } 
-    })
+  let id_token = googleUser.getAuthResponse().id_token
+  $.ajax({
+    url: `${baseUrl}/users/googleSign`,
+    method: 'post',
+    data: {
+      id_token
+    }
+  })
     .done(data => {
-        localStorage.setItem('token', data.access_token)
-        localStorage.setItem('email', data.email)
-        localStorage.setItem('picture', data.picture)
-        auth()
+      localStorage.setItem('token', data.access_token)
+      localStorage.setItem('email', data.email)
+      localStorage.setItem('picture', data.picture)
+      auth()
     })
     .fail(err => {
-        errorHandler(err)
+      errorHandler(err)
     })
-    .always(err => {
-    })
+    .always(err => {})
 }
 
 function signUp(event) {
-    event.preventDefault();
-    const email = $("#signup-email").val();
-    const password = $("#signup-password").val();
-    $.ajax({
-        url: `${baseUrl}/users/signup`,
-        method: 'post',
-        data: {
-            email,
-            password
-        }
-    })
+  event.preventDefault()
+  const email = $('#signup-email').val()
+  const password = $('#signup-password').val()
+  $.ajax({
+    url: `${baseUrl}/users/signup`,
+    method: 'post',
+    data: {
+      email,
+      password
+    }
+  })
     .done(data => {
-        console.log(data)
-        auth()
+      console.log(data)
+      auth()
     })
     .fail(err => {
-        errorHandler(err)
+      errorHandler(err)
     })
-    .always(_=> {
-        $("#signup-email").val("");
-        $("#signup-password").val("");
+    .always(_ => {
+      $('#signup-email').val('')
+      $('#signup-password').val('')
     })
 }
 
 function signOut() {
-    localStorage.clear();
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-    auth();
+  localStorage.clear()
+  var auth2 = gapi.auth2.getAuthInstance()
+  auth2.signOut().then(function () {
+    console.log('User signed out.')
+  })
+  auth()
 }
 
 function fetchTodo() {
-    $.ajax({
-        url : `${baseUrl}/todos`,
-        method : `get`,
-        headers : {
-            access_token : localStorage.token
-        }
-    })
+  $.ajax({
+    url: `${baseUrl}/todos`,
+    method: `get`,
+    headers: {
+      access_token: localStorage.token
+    }
+  })
     .done(data => {
-        $('#todos-container-inner').empty()
-        data.todos.forEach(item => {
-            let date = item.due_date.slice(0,10).split('-')[2];
-            let month = item.due_date.slice(0,10).split('-')[1];
-            let year = item.due_date.slice(0,10).split('-')[0];
-            let button = 'danger';
-            if (item.status === true) { button = 'success' }
-            $('#todos-container-inner').append(`
+      $('#todos-container-inner').empty()
+      data.todos.forEach(item => {
+        let date = item.due_date.slice(0, 10).split('-')[2]
+        let month = item.due_date.slice(0, 10).split('-')[1]
+        let year = item.due_date.slice(0, 10).split('-')[0]
+        let button = 'danger'
+        if (item.status === true) {
+          button = 'success'
+        }
+        $('#todos-container-inner').append(`
             <tr>
                 <th scope="row">
                 <button class="btn btn-${button} btn-sm" onclick="toggleTodo(${item.id})" ><img src="./assets/1x/baseline_done_black_18dp.png" ></button>
@@ -159,203 +160,206 @@ function fetchTodo() {
                 </td>
             </tr>
             `)
-        })
+      })
     })
     .fail(err => {
-        errorHandler(err)
+      errorHandler(err)
     })
 }
 
-function fetchOne (id){
-    $.ajax({
-        url : `${baseUrl}/todos/${id}`,
-        method : 'get',
-        headers : {
-            access_token : localStorage.token
-        }
-    })
+function fetchOne(id) {
+  $.ajax({
+    url: `${baseUrl}/todos/${id}`,
+    method: 'get',
+    headers: {
+      access_token: localStorage.token
+    }
+  })
     .done(data => {
-        let date = data.todo.due_date.slice(0,10).split('-')[2];
-        let month = data.todo.due_date.slice(0,10).split('-')[1];
-        let year = data.todo.due_date.slice(0,10).split('-')[0];
-        swal(`
+      let date = data.todo.due_date.slice(0, 10).split('-')[2]
+      let month = data.todo.due_date.slice(0, 10).split('-')[1]
+      let year = data.todo.due_date.slice(0, 10).split('-')[0]
+      swal(
+        `
         Description : ${data.todo.description}
 
         Due Date : ${date} - ${month} - ${year}
-        `, {
-            title : data.todo.title,
-        });
+        `,
+        {
+          title: data.todo.title
+        }
+      )
     })
     .fail(err => {
-        errorHandler(err)
+      errorHandler(err)
     })
 }
 
 function addTodo() {
-    $('#todos-container').hide();
-    $('#todo-add-form').show()
+  $('#todos-container').hide()
+  $('#todo-add-form').show()
 }
 
-function postTodo(){
-    let title = $('#add-title').val();
-    let description = $('#add-description').val();
-    let due_date = $('#add-due-date').val();
-    let access_token = localStorage.token;
-    console.log(due_date)
-    $.ajax({
-        url: `${baseUrl}/todos/`,
-        method: 'post',
-        headers: {
-            access_token
-        },
-        data : {
-            title,
-            description,
-            due_date
-        }
-    })
+function postTodo() {
+  let title = $('#add-title').val()
+  let description = $('#add-description').val()
+  let due_date = $('#add-due-date').val()
+  let access_token = localStorage.token
+  console.log(due_date)
+  $.ajax({
+    url: `${baseUrl}/todos/`,
+    method: 'post',
+    headers: {
+      access_token
+    },
+    data: {
+      title,
+      description,
+      due_date
+    }
+  })
     .done(data => {
-        console.log(data)
-        auth()
+      console.log(data)
+      auth()
     })
     .fail(err => {
-        errorHandler(err)
+      errorHandler(err)
     })
-    .always(_=> {
-        $('input').val('')
+    .always(_ => {
+      $('input').val('')
     })
 }
 
 function deleteTodo(id) {
-    $.ajax({
-        url: `${baseUrl}/todos/${id}`,
-        method: 'delete',
-        headers: {
-            access_token: localStorage.token
-        }
-    })
+  $.ajax({
+    url: `${baseUrl}/todos/${id}`,
+    method: 'delete',
+    headers: {
+      access_token: localStorage.token
+    }
+  })
     .done(data => {
-        fetchTodo()
+      fetchTodo()
     })
     .fail(err => {
-        errorHandler(err)
+      errorHandler(err)
     })
-    .always(_=> {
-
-    })
+    .always(_ => {})
 }
 
 // PUT
 
-function editTodoForm(id){
-    $('#todos-container').hide();
-    let access_token = localStorage.token;
-    $.ajax({
-        url : `${baseUrl}/todos/${id}`,
-        method : 'get',
-        headers : {
-            access_token
-        }
-    })
+function editTodoForm(id) {
+  $('#todos-container').hide()
+  let access_token = localStorage.token
+  $.ajax({
+    url: `${baseUrl}/todos/${id}`,
+    method: 'get',
+    headers: {
+      access_token
+    }
+  })
     .done(data => {
-        console.log(data.todo)
-        let dateParse = data.todo.due_date.slice(0,10).split('-')
-        let date = dateParse[2]
-        let month = dateParse[1];
-        let year = dateParse[0];
-        $('#put-title').val(data.todo.title);
-        $('#put-description').val(data.todo.description);
-        $('#put-status').val(`${data.todo.status}`).change();
-        $('#put-due-date').val(`${year}-${month}-${date}`);
-        $('#edit-form-put').attr('onsubmit',`putTodo(${data.todo.id})`)
-        $('#todo-edit-form').show()
+      console.log(data.todo)
+      let dateParse = data.todo.due_date.slice(0, 10).split('-')
+      let date = dateParse[2]
+      let month = dateParse[1]
+      let year = dateParse[0]
+      $('#put-title').val(data.todo.title)
+      $('#put-description').val(data.todo.description)
+      $('#put-status').val(`${data.todo.status}`).change()
+      $('#put-due-date').val(`${year}-${month}-${date}`)
+      $('#edit-form-put').attr('onsubmit', `putTodo(${data.todo.id})`)
+      $('#todo-edit-form').show()
     })
     .fail(err => {
-        errorHandler(err);
+      errorHandler(err)
     })
 }
 
 function putTodo(id) {
-    let access_token = localStorage.token;
-    let title = $('#put-title').val()
-    let status = $('#put-status').val()
-    let description = $('#put-description').val()
-    let due_date = $('#put-due-date').val()
-    $.ajax({
-        url : `${baseUrl}/todos/${id}`,
-        method : 'put',
-        headers : {
-            access_token
-        },
-        data : {
-            title,
-            status,
-            description,
-            due_date
-        }
-    })
+  let access_token = localStorage.token
+  let title = $('#put-title').val()
+  let status = $('#put-status').val()
+  let description = $('#put-description').val()
+  let due_date = $('#put-due-date').val()
+  $.ajax({
+    url: `${baseUrl}/todos/${id}`,
+    method: 'put',
+    headers: {
+      access_token
+    },
+    data: {
+      title,
+      status,
+      description,
+      due_date
+    }
+  })
     .done(data => {
-        swal(`
+      swal(
+        `
             description : ${data.todo.description}
-        `,{
-            icon : "success",
-            title : data.todo.title,
-            timer : 1500,
-            button : false
-        });
-        fetchTodo();
-        auth();
+        `,
+        {
+          icon: 'success',
+          title: data.todo.title,
+          timer: 1500,
+          button: false
+        }
+      )
+      fetchTodo()
+      auth()
     })
     .fail(err => {
-        errorHandler(err);
+      errorHandler(err)
     })
 }
 
 // FETCH
 function toggleTodo(id) {
-    $.ajax({
-        url : `${baseUrl}/todos/${id}`,
-        method : `patch`,
-        headers : {
-            access_token : localStorage.token
-        },
-        data : {
-            status : true
-        }
-    })
+  $.ajax({
+    url: `${baseUrl}/todos/${id}`,
+    method: `patch`,
+    headers: {
+      access_token: localStorage.token
+    },
+    data: {
+      status: true
+    }
+  })
     .done(data => {
-        swal({
-            icon : "success",
-            title : data.todo.title,
-            timer : 1500,
-            button : false
-        });
-        fetchTodo();
+      swal({
+        icon: 'success',
+        title: data.todo.title,
+        timer: 1500,
+        button: false
+      })
+      fetchTodo()
     })
     .fail(err => {
-        errorHandler(err)
+      errorHandler(err)
     })
 }
 
 // 3rd party api
 
-function randomAdvice(){
-    $.ajax({
-        url : `${baseUrl}/advice`,
-        method : 'get',
-    })
+function randomAdvice() {
+  $.ajax({
+    url: `${baseUrl}/advice`,
+    method: 'get'
+  })
     .done(data => {
-        $('#api').find('p').text(data.slip.advice)
+      $('#api').find('p').text(data.slip.advice)
     })
-    .fail(err =>{
-        errorHandler(err);
+    .fail(err => {
+      errorHandler(err)
     })
 }
 
-
 function errorHandler(err) {
-    swal(err.responseJSON.errors.join(', '), {
-        title : 'Errors',
-        className: 'red-bg',
-    });
+  swal(err.responseJSON.errors.join(', '), {
+    title: 'Errors',
+    className: 'red-bg'
+  })
 }
